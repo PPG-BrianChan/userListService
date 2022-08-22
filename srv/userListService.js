@@ -34,21 +34,19 @@ module.exports = (srv) => {
         if (req.data.reqparams !== undefined && req.data.reqparams !== null && req.data.reqparams !== '') {
             url = url.concat('?', req.data.reqparams);
         }
-        console.log(url);
-        // const service = await cdsapi.connect.to(destination);
+        const service = await cdsapi.connect.to(destination);
 
-        // try {
+        try {
 
-        //     const results = await service.run({
-        //         url: url,
-        //         method: "get",
-        //     })
-        //     return results;
-        // }
-        // catch (error) {
-        //     console.log("OOPS")
-        //     console.log(error.response.data.error)
-        //     req.error({"code":error.response.data.error.code,"message":error.response.data.error.message})
-        // }
+            const results = await service.run({
+                url: url,
+                method: "get",
+            })
+            return results;
+        }
+        catch (error) {
+            // console.log(error.response.data.error)
+            req.error({"code":error.response.data.error.code,"message":error.response.data.error.message})
+        }
     })
 }

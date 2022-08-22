@@ -8,6 +8,7 @@ modules:
   path: gen/srv
   requires:
   - name: userListService-destination-service
+  - name: uaa_userListService
   provides:
   - name: srv-api
     properties:

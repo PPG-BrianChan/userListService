@@ -1,7 +1,7 @@
 using userListService as uls from '../db/data-model';
 
 service uls_listService @(
-    requires : 'system-user',
+    // requires : 'system-user',
     path     : 'API'
 ) {
     @cds.persistence.skip
