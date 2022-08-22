@@ -1,0 +1,37 @@
+### ------------------------------------------------------------------------
+# Get list
+GET http://localhost:4004/uls-list/users?$filter=contains(displayName,'anFrancisco')
+Content-Type: application/json
+
+### ------------------------------------------------------------------------
+# Get list
+GET http://localhost:4004/uls-list/users?$filter=displayName eq 'SanFrancisco'
+Content-Type: application/json
+
+
+### ------------------------------------------------------------------------
+# Custom Action
+POST http://localhost:4004/uls-list/getUsersWithParams
+Content-Type: application/json
+
+{
+    "reqparams":
+    {
+    "groupID": "TESTING",
+    "where": [ {"ref":["displayName"]}, "=", {"val":"Scott"} ],
+    "top" : "300",
+    "skiptoken" : "TEST",
+    "orderby": [{"ref":[ "mailNickname", "test" ], "sort": "asc" } ]
+    }
+}
+
+
+### ------------------------------------------------------------------------
+# Simple Action
+GET http://localhost:4004/API/getUsersWithParams(requrl='/v1.0/users/',reqparams='$select=mailNickname,displayName,mail&$top=5')
+Content-Type: application/json
+
+### ------------------------------------------------------------------------
+# Simple Action
+GET http://localhost:4004/uls-list/getUsersWithParams(requrl='',reqparams='$select=mailNickname,displayName,mail&$top=5')
+Content-Type: application/json
