@@ -41,6 +41,9 @@ module.exports = (srv) => {
             const results = await service.run({
                 url: url,
                 method: "get",
+                headers: {
+                    'ConsistencyLevel': 'Eventual'
+                },
             })
             return results;
         }

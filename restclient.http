@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### ------------------------------------------------------------------------
 # Simple Action
-GET http://localhost:4004/API/getUsersWithParams(requrl='%2Fv1.0%2Fusers%2F',reqparams='$select=mailNickname,displayName,mail&$top=5')
+GET http://localhost:4004/API/getUsersWithParams(requrl='%2Fv1.0%2Fusers%2F',reqparams='$select=mailNickname,displayName,mail&$count=true&$top=5')
 Content-Type: application/json
 
 ### ------------------------------------------------------------------------
