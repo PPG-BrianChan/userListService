@@ -15,8 +15,7 @@ module.exports = (srv) => {
 
     srv.on('getUsersWithParams', async (req, res) => {
         var url = '';
-        console.log(req.data.requrl);
-
+        
         if (req.data.requrl == undefined || req.data.requrl == null || req.data.requrl == '') {
             req.error({"code":error_code_blankKey,"message":error_msg_blankKey})
             return;
@@ -24,13 +23,6 @@ module.exports = (srv) => {
             url = req.data.requrl;
         }
         
-        // if (req.data.groupID !== undefined && req.data.groupID !== null && req.data.groupID !== '') {
-        //     url = groupmembersurl;
-        //     url = url.replace(`<groupID>`, req.data.groupID);
-        // } else {
-        //     url = usersurl;
-        // }
-
         if (req.data.reqparams !== undefined && req.data.reqparams !== null && req.data.reqparams !== '') {
             url = url.concat('?', req.data.reqparams);
         }
@@ -51,5 +43,40 @@ module.exports = (srv) => {
             // console.log(error.response.data.error)
             req.error({"code":error.response.data.error.code,"message":error.response.data.error.message})
         }
+    })
+
+
+    srv.on('getUsers', async(req, res) => {
+        var url = '';
+        if (req.data.requrl == undefined || req.data.requrl == null || req.data.requrl == '') {
+            req.error({"code":error_code_blankKey,"message":error_msg_blankKey})
+            return;
+        }else{
+            url = req.data.requrl;
+        }
+
+        if (req.data.reqparams !== undefined && req.data.reqparams !== null && req.data.reqparams !== '') {
+            var reqparams = decodeURI(req.data.reqparams)
+            url = url.concat('?', reqparams);
+        }
+
+        const service = await cdsapi.connect.to(destination);
+        try {
+
+            const results = await service.run({
+                url: url,
+                method: "get",
+                headers: {
+                    'ConsistencyLevel': 'Eventual'
+                },
+            })
+            return results;
+        }
+        catch (error) {
+            req.error({"code":error.response.data.error.code,"message":error.response.data.error.message})
+        }
+    // var res = req._.req.res;
+    // res.send("Test")
+        // return("Test")
     })
 }

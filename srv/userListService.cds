@@ -10,7 +10,9 @@ service uls_listService @(
     @cds.persistence.skip
     entity groups as projection on uls.groups;
 
-
+    //to be renamed
     function getUsersWithParams(requrl : String, reqparams : String) returns String;
-    action   getGroupsWithParams(reqparams : String);
+
+    //action
+    action getUsers(requrl: String, reqparams : String) returns String;
 }
