@@ -5,7 +5,7 @@ Content-Type: application/json
 
 ### ------------------------------------------------------------------------
 # Test Action next to replace ' with Z3
-GET http://localhost:4004/API/getUsersWithParams(requrl='%2Fv1.0%2Fgroups%2F1dddc414-b7ab-45bb-97ca-866b471daf87%2Fmembers',reqparams='$select=mailNickname,displayName,mail&$count=true&$filter=%Z1displayName ge %27a%27and displayName le 'z'or startswith%Z1displayName,'c'%Z2%Z2&$search="displayName:b"')
+GET http://localhost:4004/API/getUsersWithParams(requrl='%2Fv1.0%2Fgroups%2F1dddc414-b7ab-45bb-97ca-866b471daf87%2Fmembers',reqparams='$select=mailNickname,displayName,mail&$count=true&$filter=(displayName ge %27a%27and displayName le 'z'or startswith(displayName,'c'))&$search="displayName:b"')
 Content-Type: application/json
 
 ### ------------------------------------------------------------------------
@@ -32,4 +32,14 @@ Content-Type: application/json
 {
     "requrl" : "/v1.0/groups/1dddc414-b7ab-45bb-97ca-866b471daf87/members",
     "reqparams" : "$select=mailNickname,displayName,mail&$count=true&$filter=(displayName ge %27a%27and displayName le 'z'or startswith(displayName,'c'))&$search=%22displayName:b%22"
+}
+
+### ------------------------------------------------------------------------
+# Simple POST Action
+POST http://localhost:4004/API/getUsers
+Content-Type: application/json
+
+{
+    "requrl" : "/v1.0/users/",
+    "reqparams" : "$select=mailNickname,displayName,mail&$count=true&"
 }
